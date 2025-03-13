@@ -1,23 +1,22 @@
-
 pipeline {
     agent any
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the code from the main branch
+                // Clone the GitHub repository
                 git branch: 'main', credentialsId: 'github-pat-for-ci-cd', url: 'https://github.com/martinjohny167/CI-CD.git'
             }
         }
         stage('Tool Setup') {
             steps {
-                // Use bat for Windows commands
+                // Verify Python and install dependencies
                 bat 'python --version'
                 bat 'pip install -r requirements.txt'
             }
         }
         stage('Build') {
             steps {
-                // Simulate build process
+                // Simulate a build process
                 bat 'echo "Building the application..."'
             }
         }
@@ -34,5 +33,12 @@ pipeline {
             }
         }
     }
-   
+    post {
+        always {
+            // Send email notification
+            mail to: 'your-college-email@college.edu',
+                 subject: "Jenkins Build ${currentBuild.fullDisplayName} - ${currentBuild.result}",
+                 body: "Build status: ${currentBuild.result}\nCheck Jenkins console output at ${env.BUILD_URL}"
+        }
+    }
 }
