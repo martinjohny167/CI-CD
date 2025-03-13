@@ -34,12 +34,5 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            // Send email notification
-            mail to: 'your-college-email@college.edu',
-                 subject: "Jenkins Build ${currentBuild.fullDisplayName} - ${currentBuild.result}",
-                 body: "Build status: ${currentBuild.result}\nCheck Jenkins console output at ${env.BUILD_URL}"
-        }
-    }
+   
 }
