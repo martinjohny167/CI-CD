@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     echo 'Cloning repository...'
-                    checkout scm 
+                    checkout scm
                 }
             }
         }
@@ -51,34 +51,27 @@ pipeline {
     }
 
     post {
-        success {
-            script {
-                echo 'Pipeline successfully completed!'
-                // Send success email notification
-                emailext(
-                    subject: "Jenkins Build Success: ${currentBuild.fullDisplayName}",
-                    body: "The pipeline was successfully completed.",
-                    to: 'Mjohny5124@conestogac.on.ca'
-                )
-            }
-        }
-
-        failure {
-            script {
-                echo 'Pipeline failed!'
-                // Send failure email notification
-                emailext(
-                    subject: "Jenkins Build Failure: ${currentBuild.fullDisplayName}",
-                    body: "The pipeline failed. Please check the build logs.",
-                    to: 'Mjohny5124@conestogac.on.ca'
-                )
-            }
-        }
-
         always {
             script {
-                echo 'Cleaning up...'
-                // You can add any cleanup tasks here if needed
+                def buildStatus = currentBuild.currentResult
+                def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: 'Github User'
+
+                emailext(
+                    subject: "Pipeline ${buildStatus}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """
+                    <p>This is a Jenkins BINGO CICD pipeline status.</p>
+                    <p>Project: ${env.JOB_NAME}</p>
+                    <p>Build Number: ${env.BUILD_NUMBER}</p>
+                    <p>Build Status: ${buildStatus}</p>
+                    <p>Started by: ${buildUser}</p>
+                    <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                    """,
+                    to: 'mjohny5124@conestogac.on.ca',
+                    from: 'martinjohny29@gmail.com',
+                    replyTo: 'mjohny5124@conestogac.on.ca',
+                    mimeType: 'text/html',
+                    attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
+                )
             }
         }
     }
