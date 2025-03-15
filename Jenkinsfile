@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     echo 'Cloning repository...'
-                    checkout scm
+                    checkout scm 
                 }
             }
         }
