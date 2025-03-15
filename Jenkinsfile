@@ -9,7 +9,6 @@ pipeline {
                 }
             }
         }
-
         stage('Build') {
             steps {
                 script {
@@ -17,12 +16,11 @@ pipeline {
                     if (isUnix()) {
                         sh 'echo "Building on Unix/Linux"'
                     } else {
-                        bat 'echo Building on Windows'  // Removed extra space
+                        bat 'echo Building on Windows'
                     }
                 }
             }
         }
-
         stage('Test') {
             steps {
                 script {
@@ -30,12 +28,11 @@ pipeline {
                     if (isUnix()) {
                         sh 'echo "Running tests on Unix/Linux"'
                     } else {
-                        bat 'echo Running tests on Windows'  // Removed extra space
+                        bat 'echo Running tests on Windows'
                     }
                 }
             }
         }
-
         stage('Deploy') {
             steps {
                 script {
@@ -43,19 +40,19 @@ pipeline {
                     if (isUnix()) {
                         sh 'echo "Deploying on Unix/Linux"'
                     } else {
-                        bat 'echo Deploying on Windows'  // Removed extra space
+                        bat 'echo Deploying on Windows'
                     }
                 }
             }
         }
     }
-
     post {
         always {
             script {
                 def buildStatus = currentBuild.currentResult
                 def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: 'Github User'
-
+                echo "Build Status: ${buildStatus}"
+                echo "Started by: ${buildUser}"
                 emailext(
                     subject: "Pipeline ${buildStatus}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                     body: """
