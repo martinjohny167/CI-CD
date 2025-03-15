@@ -32,13 +32,8 @@ pipeline {
 }
 ```
 
-## 🔗 Jenkins-GitHub Integration  
-### **Option 1: Polling-Based Approach**  
-- Configure **Jenkins > Pipeline Job > Build Triggers** to **Poll SCM**  
-- Use a cron syntax (e.g., `H/5 * * * *`) to check for changes every 5 minutes  
-- Jenkins will fetch changes and trigger a build if a commit is detected  
 
-### **Option 2: Webhook-Based Approach (Recommended)**  
+### ** Webhook-Based Approach (Recommended)**  
 - In GitHub, go to **Settings > Webhooks > Add Webhook**  
 - Set the **Payload URL** to `<JENKINS_URL>/github-webhook/`  
 - Select **Content type** as `application/json`  
@@ -47,13 +42,13 @@ pipeline {
 
 ## 📸 Screenshots
 ### **1️⃣ Jenkins Pipeline Job Configuration**
-_(Insert screenshot here)_  
+![Image](https://github.com/user-attachments/assets/d51e997b-1150-4026-b82f-61b68e96c161)
 
 ### **2️⃣ GitHub Webhook Setup**
-_(Insert screenshot here)_  
+ ![Image](https://github.com/user-attachments/assets/1f766bf0-8015-4811-96c4-afe68446e07c)
 
 ### **3️⃣ Jenkins Build Log**
-_(Insert screenshot here)_  
+ ![Image](https://github.com/user-attachments/assets/90479169-8dcb-4f03-877b-ece7188c7d8a)
 
 ## 🔍 Testing & Verification  
 1. Make a small change in the repository (e.g., update `README.md`)  
