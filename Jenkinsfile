@@ -17,7 +17,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'echo "Building on Unix/Linux"'
                     } else {
-                        bat 'echo Building on Windows'
+                        bat ' Building on Windows'
                     }
                 }
             }
@@ -30,7 +30,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'echo "Running tests on Unix/Linux"'
                     } else {
-                        bat 'echo Running tests on Windows'
+                        bat ' Running tests on Windows'
                     }
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'echo "Deploying on Unix/Linux"'
                     } else {
-                        bat 'echo Deploying on Windows'
+                        bat ' Deploying on Windows'
                     }
                 }
             }
@@ -66,7 +66,7 @@ pipeline {
                     <p>Started by: ${buildUser}</p>
                     <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
                     """,
-                    to: 'mjohny5124@conestogac.on.ca',
+                    to: 'martinjohny29@gmail.com',
                     from: 'martinjohny29@gmail.com',
                     replyTo: 'mjohny5124@conestogac.on.ca',
                     mimeType: 'text/html',
