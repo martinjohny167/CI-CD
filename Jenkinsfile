@@ -1,73 +1,15 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
+        stage('Send Email') {
             steps {
-                script {
-                    echo 'Cloning repository...'
-                    checkout scm
-                }
-            }
-        }
-        stage('Build') {
-            steps {
-                script {
-                    echo 'Simulating build process...'
-                    if (isUnix()) {
-                        sh 'echo "Building on Unix/Linux"'
-                    } else {
-                        bat 'echo Building on Windows'
-                    }
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-                script {
-                    echo 'Running tests...'
-                    if (isUnix()) {
-                        sh 'echo "Running tests on Unix/Linux"'
-                    } else {
-                        bat 'echo Running tests on Windows'
-                    }
-                }
-            }
-        }
-        stage('Deploy') {
-            steps {
-                script {
-                    echo 'Deploying application...'
-                    if (isUnix()) {
-                        sh 'echo "Deploying on Unix/Linux"'
-                    } else {
-                        bat 'echo Deploying on Windows'
-                    }
-                }
-            }
-        }
-    }
-    post {
-        always {
-            script {
-                def buildStatus = currentBuild.currentResult
-                def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: 'Github User'
-                echo "Build Status: ${buildStatus}"
-                echo "Started by: ${buildUser}"
                 emailext(
-                    subject: "Pipeline ${buildStatus}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    body: """
-                    <p>This is a Jenkins BINGO CICD pipeline status.</p>
-                    <p>Project: ${env.JOB_NAME}</p>
-                    <p>Build Number: ${env.BUILD_NUMBER}</p>
-                    <p>Build Status: ${buildStatus}</p>
-                    <p>Started by: ${buildUser}</p>
-                    <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
-                    """,
+                    subject: "Test Email Subject",
+                    body: "This is a test email.",
                     to: 'mjohny5124@conestogac.on.ca',
                     from: 'martinjohny29@gmail.com',
                     replyTo: 'mjohny5124@conestogac.on.ca',
-                    mimeType: 'text/html',
-                    attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
+                    mimeType: 'text/html'
                 )
             }
         }
