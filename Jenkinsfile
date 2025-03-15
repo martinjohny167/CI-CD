@@ -17,7 +17,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'echo "Building on Unix/Linux"'
                     } else {
-                        bat ' Building on Windows'
+                        bat 'echo Building on Windows'  // Removed extra space
                     }
                 }
             }
@@ -30,7 +30,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'echo "Running tests on Unix/Linux"'
                     } else {
-                        bat ' Running tests on Windows'
+                        bat 'echo Running tests on Windows'  // Removed extra space
                     }
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
                     if (isUnix()) {
                         sh 'echo "Deploying on Unix/Linux"'
                     } else {
-                        bat ' Deploying on Windows'
+                        bat 'echo Deploying on Windows'  // Removed extra space
                     }
                 }
             }
